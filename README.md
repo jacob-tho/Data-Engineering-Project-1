@@ -5,7 +5,7 @@ Erste ETL-Pipeline mit Finanzdaten
 ## Beschreibung
 Einarbeitung in praktische Anwendung von ETL-Prozessen.\
 Scraping mittels request und BeautifulSoup.\
-Transformation (Bereinigung) mittels Pandas.\ 
+Transformation (Bereinigung) mittels Pandas.\
 Querying der Daten mittels SQL.\
 Visualisierung mittels Matplotlib (oder Seaborn) 
 
