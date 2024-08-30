@@ -3,6 +3,7 @@ Für zukünftige Sachen
 Daten in MongoDB Laden und PySpark verwenden um darauf zuzugreifen
 DBS-Architektur
 """
+import os
 import mysql.connector
 import scraping
 
@@ -15,7 +16,7 @@ Nicole: GitHub einrichten und einladen, oh-my-git
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Melli123.",
+    password= os.getenv("MYSQL_PASSWORD"),
     database="finance"
 )
 mycursor = mydb.cursor() #"Herzstück"
