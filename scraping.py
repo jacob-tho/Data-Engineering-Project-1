@@ -5,8 +5,8 @@ import io
 #Verschiedene Arten der Extraltion?
 #API, Scraping, Download. Datembanken
 
-API_key = "demo"
-symbol = "IBM"
+API_key = "WD8OJ44ZLWCEXHRB"
+symbol = "TSCO"
 datatype = "csv"
 # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
 url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
@@ -29,7 +29,7 @@ def df_info(df):
     print(f"Anzahl der Zeilen und Spalten: {df.shape}")
     print(df.dtypes)
 df_info(financial_data)
-financial_data = financial_data.astype({"timestamp": "datetime64[ns]"})
+#financial_data = financial_data.astype({"timestamp": "datetime64[ns]"})
 
 def df_cleaning(df, column, value):
     print(df[df.isnull().any(axis=1)])
@@ -37,6 +37,7 @@ def df_cleaning(df, column, value):
     df.drop_duplicates()
 #Alternative: financial_data = pd.to_datetime(financial_data["timestamp"])
 #Gibt es eine Möglichkeit ein Recommendation-System zu machen, bei dem unpassende Spalten dtype ändern?
+#df_info(financial_data)
 
 '''
 To-Do: Unclean Dataset aufbereiten.
