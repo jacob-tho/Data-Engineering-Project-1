@@ -3,26 +3,29 @@ import pandas as pd
 import io
 
 #Verschiedene Arten der Extraltion?
-#API, Scraping, Download. Datembanken
+#API, Scraping, Download aus Datenbanken
 
 API_key = "WD8OJ44ZLWCEXHRB"
-symbol = "TSCO"
+symbol = "AAPL" #Mehrere symbole gleichzeitig?
 datatype = "csv"
-# replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+
 url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
 r = requests.get(url)
-data = r.content.decode("utf-8") #wieso das?
+data = r.content.decode("utf-8")
 
 """
 Pandas section:
 Exploration: head, info, describe, shape, columns, dtypes
 Cleaning: drop_na, fill_na, drop_duplicates, replace, rename, as_type
+Fehlt noch Ausreißer-Bereinigung
 Transformation: apply, map, groupby, pivot?, sort_values, merge, agg, concat
+-> Integration
 Selection/Filtering: loc, iloc, [condition]
 """
 #Duplikate entfernen, Null-Werte bereinigen, Datentypen checken
 #Was sind noch Standard / Must-do Aufgaben mit Pandas?
-financial_data = pd.read_csv(io.StringIO(data)) #wieso das?
+#In diesem Fall sind die Daten schon sehr "sauber". Bei anderem Projekt auf unsaubere Daten achten zur Übung
+financial_data = pd.read_csv(io.StringIO(data))
 
 def df_info(df):
     print(df.head())
@@ -30,27 +33,21 @@ def df_info(df):
     print(df.dtypes)
 df_info(financial_data)
 #financial_data = financial_data.astype({"timestamp": "datetime64[ns]"})
+#Alternative: financial_data = pd.to_datetime(financial_data["timestamp"])
 
 def df_cleaning(df, column, value):
+    #Ausgeben, ob null-Werte (Bool), bei true bereinigen
     print(df[df.isnull().any(axis=1)])
     df[column].fillna(value)
     df.drop_duplicates()
-#Alternative: financial_data = pd.to_datetime(financial_data["timestamp"])
+#financial_data.drop_duplicates()
 #Gibt es eine Möglichkeit ein Recommendation-System zu machen, bei dem unpassende Spalten dtype ändern?
-#df_info(financial_data)
+#-> Eigenes Projekt
 
 '''
-To-Do: Unclean Dataset aufbereiten.
-Datansatz bereinigen -> in SQL -> darauf dann mit pandas wieder zurückgreifen
+To-Do: Unclean Dataset aufbereiten. Funktionen zur Bereinigung und Standardisierung schreiben
 '''
-#financial_data.drop_duplicates()
-#print(financial_data[financial_data.isnull().any(axis=1)])# -> Leer, also keine NaN-Werte
-#print(financial_data.sort_values("timestamp"))
 
 #Welche Fragen könnten einen interessieren? All-time high, wie viel ist es seitdem runtergegangen?
 #Wirtschaftler mögen Prozentwerte viel lieber
 #Average daily return, correlation between stocks, periods of significant change
-
-#print(financial_data[financial_data["volume"]==financial_data["volume"].max()])
-#print(financial_data.nlargest(3, "volume"))
-#print(financial_data["high"]-financial_data["low"].idxmax())

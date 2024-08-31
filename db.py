@@ -1,7 +1,7 @@
 """
 Für zukünftige Sachen
 Daten in MongoDB Laden und PySpark verwenden um darauf zuzugreifen
-DBS-Architektur
+DBS-Architektur bei passenden Daten Strukturieren (Key-Analyse z.B.)
 """
 import os
 import mysql.connector
@@ -9,17 +9,10 @@ import scraping
 
 '''
 To-Do:
-In SQL: Create Table mit Columns und dtypes
-Query for Mining/Exploration
+In SQL: Create Table mit Columns und dtypes IF EXISTS
+Query für Exploration/Mining
 Nicole: GitHub einrichten und einladen, oh-my-git
 '''
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password= os.getenv("MYSQL_PASSWORD"),
-    database="finance"
-)
-mycursor = mydb.cursor() #"Herzstück"
 def new_table(symbol):
     #if already exists?
     mycursor.execute(f"""CREATE TABLE {symbol} (
@@ -36,7 +29,7 @@ def show_tables():
     for x in mycursor:
         print(x)
 
-def show_schema(name):
+def show_schema(schema):
     mycursor.execute(f"DESCRIBE {name}")
     schema = mycursor.fetchall()
     for column in schema:
@@ -48,7 +41,7 @@ def show_values(schema):
     for row in rows:
         print(row)
 
-def insert_schema(dataframe, name):
+def insert_schema(dataframe, schema):
     df = dataframe
     data = df.values.tolist()
     placeholders = ', '.join(['%s'] * len(df.columns))
@@ -58,14 +51,22 @@ def insert_schema(dataframe, name):
     mycursor.executemany(sql, data)
     mydb.commit()
 
-new_table(scraping.symbol)
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password= os.getenv("MYSQL_PASSWORD"),
+    database="finance"
+    )
+mycursor = mydb.cursor() #"Herzstück"
+schema = scraping.symbol
+new_table(schema)
 show_tables()
 #INSERT SCHEMA NUR WENN EMPTY!
-insert_schema(scraping.financial_data, scraping.symbol)
-show_schema(scraping.symbol)
-show_values(scraping.symbol)
+insert_schema(scraping.financial_data, schema)
+show_schema(schema)
+#show_values(schema)
 
 mycursor.close()
 mydb.close()
-#mydb.close()
-#Damit habe ich dann alles in SQL geladen, jetzt nur noch Queries
+
+#Damit habe ich dann alles in SQL geladen, jetzt noch Flow Control & Queries (+ Visualisierung)
