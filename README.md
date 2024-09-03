@@ -11,15 +11,18 @@ Visualisierung mittels Matplotlib (oder Seaborn)
 
 ## Zukünftige Roadmap
 TO-DO / Weitere Add-Ons: \
-Scheduling, Mehrere Quellen extrahieren und integrieren (Duplikaterkennung, Schema Matching), Machine-Learning nach Bereinigung \
-Verwendung anderer Technologien: Apache Spark für Batch Processing, NoSQL oder Cloud anstatt SQL verwenden \
+Scheduling und mehrere Quellen extrahieren, integrieren (Duplikaterkennung, Schema Matching), Machine-Learning nach Bereinigung \
+Verwendung anderer Technologien: NoSQL oder Cloud anstatt SQL verwenden, Apache Spark für Batch Processing, NiFi und Airflow \
 Interaktive Dashboards / Integration in Power BI
 
 ## Inspiration und Hilfestellungen
 Vorlesung "Data Engineering", gelesen von Prof. Dr. Fabian Panse, Universität Augsburg \
 "Fundamentals of Data Engineering"
+"Data Engineering with Python"
+"Principles of Data Integration"
 
 ## Projektstatus
 Beginn: 30.08.2024 \
+Basic Framework hergestellt: Zieht Zeitreihendaten mittels API und lädt Daten in MySQL DBS \
 Voraussichtlich abgeschlossen: 30.09.2024 \
 Wöchentliche Updates folgen
