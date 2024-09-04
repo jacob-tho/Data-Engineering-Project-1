@@ -5,7 +5,8 @@ DBS-Architektur bei passenden Daten Strukturieren (Key-Analyse z.B.)
 """
 import os
 import mysql.connector
-import scraping
+import extract
+import transform
 
 '''
 To-Do:
@@ -58,11 +59,11 @@ mydb = mysql.connector.connect(
     database="finance"
     )
 mycursor = mydb.cursor() #"Herzstück"
-schema = scraping.symbol
+schema = extract.symbol
 new_table(schema)
 show_tables()
 #INSERT SCHEMA NUR WENN EMPTY!
-insert_schema(scraping.financial_data, schema)
+insert_schema(extract.financial_data, schema)
 show_schema(schema)
 #show_values(schema)
 
