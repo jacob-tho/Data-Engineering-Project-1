@@ -11,8 +11,8 @@ import transform
 '''
 To-Do:
 In SQL: Create Table mit Columns und dtypes IF EXISTS
-Query für Exploration/Mining
-Nicole: GitHub einrichten und einladen, oh-my-git
+        ALTER TABLE / INSERT neue Daten nach Scheduling
+Query für Exploration/Mining (und das Ergebnis automatisch visualisieren ?)
 '''
 def new_table(symbol):
     #if already exists?
@@ -31,7 +31,7 @@ def show_tables():
         print(x)
 
 def show_schema(schema):
-    mycursor.execute(f"DESCRIBE {name}")
+    mycursor.execute(f"DESCRIBE {extract.symbol}")
     schema = mycursor.fetchall()
     for column in schema:
         print(column)
@@ -47,11 +47,12 @@ def insert_schema(dataframe, schema):
     data = df.values.tolist()
     placeholders = ', '.join(['%s'] * len(df.columns))
     columns = ', '.join(df.columns)
-    sql = f"INSERT INTO {name} ({columns}) VALUES ({placeholders})"
+    sql = f"INSERT INTO {extract.symbol} ({columns}) VALUES ({placeholders})"
 
     mycursor.executemany(sql, data)
     mydb.commit()
 
+#Server nicht nur lokal laufen lassen
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -60,6 +61,7 @@ mydb = mysql.connector.connect(
     )
 mycursor = mydb.cursor() #"Herzstück"
 schema = extract.symbol
+
 new_table(schema)
 show_tables()
 #INSERT SCHEMA NUR WENN EMPTY!

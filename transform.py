@@ -2,6 +2,7 @@ import extract
 import pandas as pd
 
 
+
 """
 Pandas section:
 Exploration: head, info, describe, shape, columns, dtypes
@@ -15,14 +16,11 @@ Selection/Filtering: loc, iloc, [condition]
 #Was sind noch Standard / Must-do Aufgaben mit Pandas?
 #In diesem Fall sind die Daten schon sehr "sauber". Bei anderem Projekt auf unsaubere Daten achten zur Übung
 
-#Ab hier kommt in transform.py
-financial_data = pd.read_csv(io.StringIO(data))
-
 def df_info(df):
     print(df.head())
     print(f"Anzahl der Zeilen und Spalten: {df.shape}")
     print(df.dtypes)
-df_info(financial_data)
+df_info(extract.financial_data)
 #financial_data = financial_data.astype({"timestamp": "datetime64[ns]"})
 #Alternative: financial_data = pd.to_datetime(financial_data["timestamp"])
 
@@ -32,11 +30,13 @@ def df_cleaning(df, column, value):
     df[column].fillna(value)
     df.drop_duplicates()
 #financial_data.drop_duplicates()
+
 #Gibt es eine Möglichkeit ein Recommendation-System zu machen, bei dem unpassende Spalten dtype ändern?
 #-> Eigenes Projekt
 
 '''
 To-Do: Unclean Dataset aufbereiten. Funktionen zur Bereinigung und Standardisierung schreiben
+Spalten hinzufügen?
 '''
 
 #Welche Fragen könnten einen interessieren? All-time high, wie viel ist es seitdem runtergegangen?
