@@ -62,12 +62,14 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor() #"Herzstück"
 schema = extract.symbol
 
+#Create nur wenn noch nicht da
 new_table(schema)
 show_tables()
 #INSERT SCHEMA NUR WENN EMPTY!
 insert_schema(extract.financial_data, schema)
 show_schema(schema)
-#show_values(schema)
+#show_values(schema) #head!
+#Automatische Visualisierung des reingeladenen Stocks, wenn encode_single
 
 mycursor.close()
 mydb.close()
