@@ -1,7 +1,8 @@
 import extract
 import pandas as pd
 
-
+#TO-DO: Neue Spalte "rate of change" von closed value. Immer nur das erste hinzufügen (soll dann oben stehen)
+#       Erste Spalte date time sieht sehr komisch aus
 
 """
 Pandas section:
@@ -21,7 +22,7 @@ def df_info(df):
     print(f"Anzahl der Zeilen und Spalten: {df.shape}")
     print(df.dtypes)
 df_info(extract.financial_data)
-#financial_data = financial_data.astype({"timestamp": "datetime64[ns]"})
+#extract.financial_data = extract.financial_data.astype({"timestamp": "datetime64[ns]"})
 #Alternative: financial_data = pd.to_datetime(financial_data["timestamp"])
 
 def df_cleaning(df, column, value):
@@ -31,6 +32,10 @@ def df_cleaning(df, column, value):
     df.drop_duplicates()
 #financial_data.drop_duplicates()
 
+def new_column(column_name="rate_of_change"): #dtype float?
+    pass
+
+    
 #Gibt es eine Möglichkeit ein Recommendation-System zu machen, bei dem unpassende Spalten dtype ändern?
 #-> Eigenes Projekt
 

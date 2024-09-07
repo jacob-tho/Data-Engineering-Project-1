@@ -3,6 +3,14 @@ import transform
 import load
 from apscheduler.schedulers.blocking import BlockingScheduler
 
+import os
+
+API_key = os.getenv("API_KEY")
+symbol = "AAT" #ändert sich durch Liste
+datatype = "csv"
+url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
+
+
 def etl_pipeline:
     print("Start der Pipeline")
     #Code
@@ -15,7 +23,7 @@ def etl_pipeline:
     #Auswahl über Eingabe bestimmter Stocks, auf denen dann Prediction zum nächsten Tag gegeben wird
     print("Job erledigt")
 
-scheduler = BlockingScheduler
-scheduler.add_job(etl_pipeline, "cron", hour=6, minute=0)
+#scheduler = BlockingScheduler
+#scheduler.add_job(etl_pipeline, "cron", hour=6, minute=0)
 
-scheduler.start()
+#scheduler.start()
