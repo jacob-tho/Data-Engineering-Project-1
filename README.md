@@ -24,5 +24,6 @@ Vorlesung "Data Engineering", gelesen von Prof. Dr. Fabian Panse, Universität A
 ## Projektstatus
 Beginn: 30.08.2024 \
 Basic Framework hergestellt: Zieht Zeitreihendaten mittels API und lädt Daten in MySQL DBS \
+Alle Symbole auf einmal gescraped, neue Spalte "rate_of_change"; Als nächstes Visualisierung und EDA + PDA\
 Voraussichtlich abgeschlossen: 30.09.2024 \
 Wöchentliche Updates folgen
