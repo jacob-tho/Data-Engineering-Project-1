@@ -7,6 +7,7 @@ import os
 import mysql.connector
 import extract
 import transform
+import pdb
 
 '''
 To-Do:
@@ -23,7 +24,9 @@ def new_table(symbol):
         high FLOAT,
         low FLOAT,
         close FLOAT,
-        volume INTEGER)""")
+        volume INTEGER,
+        rate_of_change DECIMAL(6,3)
+        )""")
 
 def show_tables():
     mycursor.execute("SHOW TABLES")
@@ -52,6 +55,7 @@ def insert_schema(dataframe, schema):
     mycursor.executemany(sql, data)
     mydb.commit()
 
+
 #Server nicht nur lokal laufen lassen -> my.ini
 mydb = mysql.connector.connect(
     host="localhost",
@@ -62,15 +66,16 @@ mydb = mysql.connector.connect(
 
 
 mycursor = mydb.cursor() #"Herzstück"
-schema = extract.symbol
+table = extract.symbol
 
 #Create nur wenn noch nicht da
-new_table(schema)
+new_table(table)
 show_tables()
+#pdb.set_trace()
 #INSERT SCHEMA NUR WENN EMPTY! Left Join?
-#insert_schema(extract.financial_data, schema)
-show_schema(schema)
-show_values(schema) #head!
+insert_schema(transform.df, table) #wieso geht das jetzt nicht?
+show_schema(table)
+show_values(table) #head!
 #Automatische Visualisierung des reingeladenen Stocks, wenn encode_single
 
 mycursor.close()

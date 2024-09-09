@@ -21,7 +21,6 @@ def df_info(df):
     print(df.head())
     print(f"Anzahl der Zeilen und Spalten: {df.shape}")
     print(df.dtypes)
-df_info(extract.financial_data)
 #extract.financial_data = extract.financial_data.astype({"timestamp": "datetime64[ns]"})
 #Alternative: financial_data = pd.to_datetime(financial_data["timestamp"])
 
@@ -32,10 +31,20 @@ def df_cleaning(df, column, value):
     df.drop_duplicates()
 #financial_data.drop_duplicates()
 
-def new_column(column_name="rate_of_change"): #dtype float?
-    pass
+def new_column(df, column_name="rate_of_change"): #dtype float?
+    df[column_name] = -100 * (1 - df["close"]/df["close"].shift(-1))
+    df.fillna(0)
+    return df
 
-    
+df = extract.encode_single(extract.url)
+df_info(df)
+df = new_column(df)
+df = df.where((pd.notnull(df)), 0)
+print(df.iloc[100:110])
+#df_cleaning(df, "rate_of_change", 0)
+#print(df)
+
+
 #Gibt es eine Möglichkeit ein Recommendation-System zu machen, bei dem unpassende Spalten dtype ändern?
 #-> Eigenes Projekt
 

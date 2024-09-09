@@ -6,16 +6,19 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import os
 
 API_key = os.getenv("API_KEY")
-symbol = "AAT" #ändert sich durch Liste
+url_symbols = "https://api.stockanalysis.com/api/screener/s/f?m=s&s=asc&c=s,n,industry,marketCap&cn=6000&p=1&i=stocks"
+symbols = extract.scrape_all(url_symbols)
 datatype = "csv"
-url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
+
 
 
 def etl_pipeline:
     print("Start der Pipeline")
     #Code
-    #extract()
-    #for symbol in extract.symbols
+    for symbol in symbols:
+        url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
+        #Hier einmal das ganze Symbol loaden.
+    
     #url anpassen und encode_single
     #transform
     #load
