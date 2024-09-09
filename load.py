@@ -26,7 +26,7 @@ def new_table(symbol):
         close FLOAT,
         volume INTEGER,
         rate_of_change DECIMAL(6,3)
-        )""")
+        )""") #rate_of_change dtype ändern?
 
 def show_tables():
     mycursor.execute("SHOW TABLES")
@@ -70,16 +70,15 @@ table = extract.symbol
 
 #Create nur wenn noch nicht da
 new_table(table)
+
 show_tables()
-#pdb.set_trace()
 #INSERT SCHEMA NUR WENN EMPTY! Left Join?
-insert_schema(transform.df, table) #wieso geht das jetzt nicht?
+insert_schema(transform.df, table)
 show_schema(table)
 show_values(table) #head!
-#Automatische Visualisierung des reingeladenen Stocks, wenn encode_single
+
 
 mycursor.close()
 mydb.close()
 
 #Damit habe ich dann alles in SQL geladen, jetzt noch Flow Control & Queries (+ Visualisierung)
-#Weitere Querys und Visualisierung vorerst Nicole überlassen

@@ -18,6 +18,7 @@ def scrape_symbols(url):
     symbols = [symbol.get_text(strip=True) for symbol in list]
     print(len(symbols))
     return symbols
+    #url = "https://stockanalysis.com/stocks/"
 '''
 
 def scrape_all(url):
@@ -68,7 +69,4 @@ datatype = "csv"
 url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
 financial_data = encode_single(url)
 #print(financial_data)
-#url = "https://stockanalysis.com/stocks/"
 url_symbols = "https://api.stockanalysis.com/api/screener/s/f?m=s&s=asc&c=s,n,industry,marketCap&cn=6000&p=1&i=stocks"
-
-#print(scrape_all(url))
