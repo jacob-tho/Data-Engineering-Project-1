@@ -18,7 +18,7 @@ def etl_pipeline:
     for symbol in symbols:
         url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
         #Hier einmal das ganze Symbol loaden.
-    
+
     #url anpassen und encode_single
     #transform
     #load
