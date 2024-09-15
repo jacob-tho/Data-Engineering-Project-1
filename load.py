@@ -56,18 +56,18 @@ def insert_schema(dataframe, schema):
     if count == 0:
         insert_many(dataframe, schema)
     else:
-        mycursor.execute(f"SELECT * FROM {schema} ORDER BY timestamp LIMIT 1")
+        mycursor.execute(f"SELECT * FROM {schema} ORDER BY timestamp desc LIMIT 1")
         first_row_db = mycursor.fetchone()
         df = dataframe.head(1)
         first_row_df = df.values.tolist()[0]
         if first_row_db != first_row_df:
+            #Das funktioniert noch nicht ganz! Es gibt noch Duplikate
             placeholders = ', '.join(['%s'] * len(df.columns))
             columns = ', '.join(df.columns)
             sql = f"INSERT INTO {schema} ({columns}) VALUES ({placeholders})"
-            mycursor.exectue(sql, first_row_df)
+            mycursor.execute(sql, first_row_df)
         else:
             print("Erster Wert überschneidet sich. Kein neuer Wert reingeladen.")
-        insert_one(dataframe, schema)
     mydb.commit()
 
 

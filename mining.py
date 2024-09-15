@@ -3,7 +3,7 @@ import os
 import datetime
 import matplotlib.pyplot as plt
 import matplotlib.dates
-
+#from main import symbol_list Wie genau funktionieren import-statements? Wieso wird main immer komplett ausgeführt?
 """
 Normale Prozedur: EDA; PDA
 Time Series visulalisieren. Lineare Regression?. Allgemein schauen, was man mit Time-Series so machen kann.
@@ -18,18 +18,35 @@ password= os.getenv("MYSQL_PASSWORD"),
 database="finance"
 )
 mycursor = mydb.cursor()
+symbol_list = ["DELL", "SMCI", "RGTI", "RCAT", "QUBT", "QMCO", "QBTS", "PSTG", "NNDM", "LOGI", "DM", "UDMY", "UTI", "TAL", "STRA", "SKIL", "LINC", "IH", "EEIQ", "FOX", "IMAX", "MANU", "NFLX", "PARA", "WBD"]
 
-mycursor.execute(f"SELECT timestamp, close FROM dell")
-rows = mycursor.fetchall()
-x_axis = []
-y_axis = []
-for row in rows:
-    date_part = row[0]
-    close = row[1]
-    cleaned = (datetime.datetime(date_part.year, date_part.month, date_part.day), close)
-    x_axis.append(cleaned[0])
-    y_axis.append(cleaned[1])
+def plot(symbol):
+    #Eventuell zu jedem Graph noch ein Subplot mit "rate_of_change"?
+    mycursor.execute(f"SELECT timestamp, close, rate_of_change FROM {symbol} ORDER BY timestamp desc")
+    rows = mycursor.fetchall()
+    x_axis = []
+    y_axis = []
+    y_axis_change = [] #Das muss noch in irgendeiner Form Standardisiert/Normalisiert werden!!!
+    for row in rows:
+        date_part = row[0]
+        close = row[1]
+        rate_of_change = row[2]
+        cleaned = (datetime.datetime(date_part.year, date_part.month, date_part.day), close, rate_of_change)
+        x_axis.append(cleaned[0])
+        y_axis.append(cleaned[1])
+        y_axis_change.append(cleaned[2])
 
-plt.plot(x_axis, y_axis)
-plt.show()
-#plt.show()
+    '''
+    fig, ax = plt.subplots(2,1)
+
+    ax[0].plot(x_axis, y_axis)
+    ax[0].set_title(f"{symbol}-Graph")
+    ax[1].plot(x_axis, y_axis_change)
+    ax[1].set_title(f"{symbol}-Graph Veränderungen")
+    plt.show()
+    '''
+    plt.plot(x_axis, y_axis)
+    plt.title(f"{symbol}-Graph")
+    plt.show()
+for symbol in symbol_list:
+    plot(symbol)
