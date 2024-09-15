@@ -7,11 +7,12 @@ Einarbeitung in praktische Anwendung von ETL-Prozessen.\
 Scraping mittels request und API.\
 Transformation (Bereinigung) mittels Pandas.\
 Querying der Daten mittels SQL.\
-Visualisierung mittels Matplotlib (oder Seaborn)
+Visualisierung mittels Matplotlib (oder Seaborn).\
+Machine-Learning Algorithmen für Zeitreihen-Analyse
 
 ## Zukünftige Roadmap
 TO-DO / Weitere Add-Ons: \
-Scheduling und mehrere Quellen extrahieren, integrieren (Duplikaterkennung, Schema Matching), Machine-Learning nach Bereinigung \
+Scheduling und mehrere Quellen extrahieren, integrieren (Duplikaterkennung, Schema Matching)\
 Verwendung anderer Technologien: NoSQL oder Cloud anstatt SQL verwenden, Apache Spark für Batch Processing, NiFi und Airflow \
 Interaktive Dashboards / Integration in Power BI
 
@@ -24,6 +25,8 @@ Vorlesung "Data Engineering", gelesen von Prof. Dr. Fabian Panse, Universität A
 ## Projektstatus
 Beginn: 30.08.2024 \
 Basic Framework hergestellt: Zieht Zeitreihendaten mittels API und lädt Daten in MySQL DBS \
-Alle Symbole auf einmal gescraped, neue Spalte "rate_of_change"; Als nächstes Visualisierung und EDA + PDA\
+Alle Symbole auf einmal gescraped, neue Spalte "rate_of_change"; \
+Integration und Scheduling abgeschlossen (Stand 14.09.24)\ 
+Als nächstes Visualisierung und EDA + PDA mit Machine-Learning\
 Voraussichtlich abgeschlossen: 30.09.2024 \
 Wöchentliche Updates folgen
