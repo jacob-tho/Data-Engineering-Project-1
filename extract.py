@@ -55,6 +55,9 @@ def scrape_all(url):
     return results
 
 def encode_single(url):
+    """
+    Greift auf API zu und lädt CSV Daten in pandas Dataframe
+    """
     r = requests.get(url)
     data = r.content.decode("utf-8")
     data = pd.read_csv(io.StringIO(data))

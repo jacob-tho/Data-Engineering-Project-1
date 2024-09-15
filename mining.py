@@ -22,6 +22,10 @@ symbol_list = ["DELL", "SMCI", "RGTI", "RCAT", "QUBT", "QMCO", "QBTS", "PSTG", "
 
 def plot(symbol):
     #Eventuell zu jedem Graph noch ein Subplot mit "rate_of_change"?
+    """
+    Funktion zum plotten der jeweiligen Zeitreihe.
+    To-Do: Subplot mit rate_of_change (kleineres, aktuelles Zeitintervall mit Prediction!)
+    """
     mycursor.execute(f"SELECT timestamp, close, rate_of_change FROM {symbol} ORDER BY timestamp desc")
     rows = mycursor.fetchall()
     x_axis = []
