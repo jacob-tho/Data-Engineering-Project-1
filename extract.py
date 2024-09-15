@@ -1,10 +1,10 @@
 import requests
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 import io #das kommt dann raus
 import pandas as pd
-import os #das kommt dann raus
+#import os #das kommt dann raus
 import re
-import json
+#import json
 
 
 '''
@@ -22,13 +22,12 @@ def scrape_symbols(url):
 '''
 
 def scrape_all(url):
+    #Durch die Beschränkung des API Zugriffs ist diese Funktion leider obsolet
     headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'}
     response = requests.get(url, headers=headers)
 
     try:
         data = response.json()
-        #print("JSON Datei:", json.dumps(data, indent=2))
-        #print(data)
 
     except json.JSONDecodeError:
         print("Konnte nicht geparsed werden")
@@ -61,12 +60,7 @@ def encode_single(url):
     data = pd.read_csv(io.StringIO(data))
     return data
 
-API_key = os.getenv("API_KEY") #IST LIMITIERT AUF 25 PRO TAG"
-symbol = "ACI"
-datatype = "csv"
-
+"""
 #URL muss dann geändert werden
-url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={API_key}&datatype={datatype}'
-financial_data = encode_single(url)
-#print(financial_data)
 url_symbols = "https://api.stockanalysis.com/api/screener/s/f?m=s&s=asc&c=s,n,industry,marketCap&cn=6000&p=1&i=stocks"
+"""

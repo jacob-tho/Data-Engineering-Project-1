@@ -3,19 +3,6 @@ import pandas as pd
 
 #TO-DO: Immer nur das erste hinzufügen (soll dann oben stehen)
 #       Erste Spalte date time sieht komisch aus?
-
-"""
-Pandas section:
-Exploration: head, info, describe, shape, columns, dtypes
-Cleaning: drop_na, fill_na, drop_duplicates, replace, rename, as_type
-Fehlt noch Ausreißer-Bereinigung
-Transformation: apply, map, groupby, pivot?, sort_values, merge, agg, concat
--> Integration
-Selection/Filtering: loc, iloc, [condition]
-"""
-
-#Duplikate entfernen, Null-Werte bereinigen, Datentypen checken
-#Was sind noch Standard / Must-do Aufgaben mit Pandas?
 #In diesem Fall sind die Daten schon sehr "sauber". Bei anderem Projekt auf unsaubere Daten achten zur Übung
 
 def df_info(df):
@@ -35,11 +22,12 @@ def new_column(df, column_name="rate_of_change"): #dtype float? Oder gibt es bes
     df.fillna(0)
     return df
 
-df = extract.encode_single(extract.url)
-df_info(df)
-df = new_column(df)
-df = df.where((pd.notnull(df)), 0) #NaN mit "0" ersetzen
-
+def transform(data):
+    df = extract.encode_single(data)#(extract.url)
+    df_info(df)
+    df = new_column(df)
+    df = df.where((pd.notnull(df)), 0) #NaN mit "0" ersetzen
+    return df
 
 #Gibt es eine Möglichkeit ein Recommendation-System zu machen, bei dem unpassende Spalten dtype ändern?
 #-> Eigenes Projekt
