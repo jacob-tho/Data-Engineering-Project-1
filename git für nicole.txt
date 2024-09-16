@@ -9,3 +9,5 @@ git pull
 Zwischen Versionen herumspringen:
 git checkout HEAD^ -> vorherige version auf dem jeweiligen Branch
 git checkout -b -> Erstellt neuen Branch
+
+🦆
