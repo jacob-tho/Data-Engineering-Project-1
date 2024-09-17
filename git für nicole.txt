@@ -11,6 +11,7 @@ Zum holen:
 git pull
 
 Zwischen Versionen herumspringen:
+<<<<<<< HEAD
 git checkout HEAD^ -> vorherige Version auf dem jeweiligen Branch
 git checkout 'HASHWERT' -> Head-pointer bewegt sich auf entsprechende commit (befinden uns im detached Head state)
 git checkout main -> Head-pointer bewegt sich zur main-branch
@@ -28,3 +29,9 @@ mv 'DATEINAME' 'ZIEL' -> Datei verschieben
 rm 'DATEINAME' -> Datei löschen
 mkdir 'DATEINAME' -> neuer Ordner/Verzeichnis erstellen
 new-item 'NAME' -> neue Textdatei erstellen
+=======
+git checkout HEAD^ -> vorherige version auf dem jeweiligen Branch
+git checkout -b -> Erstellt neuen Branch
+
+🦆
+>>>>>>> 68fe1412e946ce944b40c340027858dcab4b9ac5
