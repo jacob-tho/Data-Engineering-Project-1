@@ -1,0 +1,41 @@
+\documentclass[12pt]{article}
+\usepackage[
+top=25pt,
+left=40pt,
+right=40pt
+]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage[ngerman]{babel}
+\usepackage{csquotes}
+\usepackage{microtype}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+
+\MakeOuterQuote{"}
+
+\title{Dokumentation\\Data Engineering mit Stock Daten}
+\author{Jacob Throwarth, Nicole Titze, Luis Lohse}
+\date{16.09.24}
+\begin{document}
+\maketitle
+
+\section{Überblick}
+
+Wir laden Daten über eine API (alphavantage.co), transformieren diese und speichern sie in einer Datenbank. Danach wird eine Zeitreihenanalyse durchgeführt.
+
+\section{Die Dateien}
+\subsection{main.py}
+\subsection{load.py}
+\subsection{mining.py}
+\subsection{transform.py}
+\subsection{extract.py}
+
+\end{document}

@@ -11,6 +11,8 @@ import pdb
 import pandas as pd
 import datetime
 
+DECIMAL_ACCURACY = 6
+
 '''
 To-Do:
 Query für Exploration/Mining (und das Ergebnis automatisch visualisieren)
@@ -85,21 +87,21 @@ def standardize(sql, df):
     Standardisierung von SQL Row und Pandas Dataframe Row. Checke auf Duplikate
     """
     sql_standardized = [sql[1].strftime("%Y-%m-%d"),
-    round(float(sql[2]), 6),
-    round(float(sql[3]), 6),
-    round(float(sql[4]), 6),
-    round(float(sql[5]), 6),
+    round(float(sql[2]), DECIMAL_ACCURACY),
+    round(float(sql[3]), DECIMAL_ACCURACY),
+    round(float(sql[4]), DECIMAL_ACCURACY),
+    round(float(sql[5]), DECIMAL_ACCURACY),
     sql[6],
-    round(float(sql[7]), 6),]
+    round(float(sql[7]), DECIMAL_ACCURACY)]
 
     df_standardized = [pd.to_datetime(df[0]).strftime("%Y-%m-%d"),
-    round(float(df[1]), 6),
-    round(float(df[2]), 6),
-    round(float(df[3]), 6),
-    round(float(df[4]), 6),
-    round(float(df[5]), 6),
+    round(float(df[1]), DECIMAL_ACCURACY),
+    round(float(df[2]), DECIMAL_ACCURACY),
+    round(float(df[3]), DECIMAL_ACCURACY),
+    round(float(df[4]), DECIMAL_ACCURACY),
+    round(float(df[5]), DECIMAL_ACCURACY),
     df[6],
-    round(float(df[1]), 6),]
+    round(float(df[1]), DECIMAL_ACCURACY),]
 
     duplicate = sql_standardized[:3] == df_standardized[:3]
     return duplicate
@@ -127,9 +129,7 @@ def insert_schema(dataframe, schema):
             print("Erster Wert überschneidet sich. Kein neuer Wert reingeladen.")
     mydb.commit()
 
-
 #Server nicht nur lokal laufen lassen -> my.ini
-
 
 mydb = mysql.connector.connect(
 host="localhost",
