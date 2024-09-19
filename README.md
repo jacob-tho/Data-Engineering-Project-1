@@ -30,3 +30,10 @@ Integration und Scheduling abgeschlossen (Stand 14.09.24)\
 Als nächstes Visualisierung und EDA + PDA mit Machine-Learning\
 Voraussichtlich abgeschlossen: 30.09.2024 \
 Wöchentliche Updates folgen
+
+### Features der DB-Connection
+- Create Table if not exists
+- Insert einen Stock
+    - Update Data wenn der Timestamp schon existiert
+    - Komplett Inserten, wenn es das noch nicht gibt.
+- Stock Info holen

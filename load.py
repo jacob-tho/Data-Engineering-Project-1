@@ -81,7 +81,6 @@ def insert_one(dataframe, schema):
     sql = f"INSERT INTO {schema} ({columns}) VALUES ({placeholders})"
     mycursor.execute(sql, dataframe)
 
-
 def standardize(sql, df):
     """
     Standardisierung von SQL Row und Pandas Dataframe Row. Checke auf Duplikate
