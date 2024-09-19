@@ -1,5 +1,9 @@
+git init -> initialisieren eines git repository dem Ordner, in dem wir uns gerade befinden
+git status -> welchen Status hat der aktuelle Ordner
+git log -> commit-history
+
 Fürs Hochladen:
-git add . (alles) oder git add "Dateiname"
+git add . (alles) oder git add 'DATEINAME' (Hinzufügen zu staging area (Zwischenbereich))
 git commit -m "Kommentar"
 git push
 
@@ -7,5 +11,27 @@ Zum holen:
 git pull
 
 Zwischen Versionen herumspringen:
+<<<<<<< HEAD
+git checkout HEAD^ -> vorherige Version auf dem jeweiligen Branch
+git checkout 'HASHWERT' -> Head-pointer bewegt sich auf entsprechende commit (befinden uns im detached Head state)
+git checkout main -> Head-pointer bewegt sich zur main-branch
+git checkout -b -> Erstellt neuen Branch
+git branch 'NAME' -> erstellt neuen Branch auf commit, auf dem man sich gerade befindet
+git branch -D 'NAME' -> branch löschen
+git merge (auf der Branch sein, auf die ich es mergen möchte und die Branch eingeben, die ich mergen möchte)
+
+Weitere Befehle:
+cd 'DATEIPFAD' -> Ordner wechseln oder cd DATEINAME (wenn wir in richtigem übergeordnetem Ordner sind)
+cd .. -> zurück auf übergeordneten Ordner
+clear -> leer Konsole
+ls -> Auflistung des Inhalts des Verzeichnisses
+mv 'DATEINAME' 'ZIEL' -> Datei verschieben
+rm 'DATEINAME' -> Datei löschen
+mkdir 'DATEINAME' -> neuer Ordner/Verzeichnis erstellen
+new-item 'NAME' -> neue Textdatei erstellen
+=======
 git checkout HEAD^ -> vorherige version auf dem jeweiligen Branch
 git checkout -b -> Erstellt neuen Branch
+
+🦆
+>>>>>>> 68fe1412e946ce944b40c340027858dcab4b9ac5
