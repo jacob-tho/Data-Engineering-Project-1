@@ -33,9 +33,9 @@ def transform(data):
     Alle vorherigen Funktionen in logischer Reienfolge. Dabei wird der Wert des letzten Eintrages durch 0 ersetzt,
     da dieser keinen Vortag hat und NaN ist.
     """
-    df = extract.encode_single(data)#(extract.url)
-    df_info(df)
+    df = extract.encode_single(data)
     df = new_column(df)
+    df_info(df)
     df = df.where((pd.notnull(df)), 0) #NaN mit "0" ersetzen
     return df
 
