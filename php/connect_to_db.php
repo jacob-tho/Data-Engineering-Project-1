@@ -1,7 +1,6 @@
 <?php
+# Authenticate by given password and connect to the Database 
 include ".env.php";
-# Connect to the database and retrieve all stock data
-# To authenticate, give the password "une902n4oo" in GET 'pw' while requesting the website
 
 $given_password = $_GET['pw'];
 
@@ -14,7 +13,6 @@ $username = "dbu2311301";
 $password = "StockDataIsSafe1!";
 $databsename = "dbs13295667";
 
-$conn = new PDO("mysql:host=$servername;dbname=$databasename", $username, $password);
+$conn = new PDO("mysql:host=$servername;dbname=dbs13295667", $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
