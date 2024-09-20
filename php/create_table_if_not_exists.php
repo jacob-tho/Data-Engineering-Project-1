@@ -1,6 +1,6 @@
 <?php
 # Connect to the database and retrieve all stock data
-# To authenticate, give the password "une902n4oo" in GET 'pw' while requesting the website
+# To authenticate, give the password in GET 'pw' while requesting the website
 include "connect_to_db.php";
 
 $symbol = $_GET['symbol'];

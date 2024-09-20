@@ -1,8 +1,8 @@
 <?php
 # Connect to the database and insert stock data for a given symbol
 # Transmit the symbol with GET 'symbol'
-# Transfer the rest of the data in a JSON-stringified object.
-# To authenticate, give the password "une902n4oo" in GET 'pw' while requesting the website
+# Transfer the rest of the data in a JSON-stringified object. GET "stock_data"
+# To authenticate, give the password in GET 'pw' while requesting the website
 include "connect_to_db.php";
 
 $symbol = $_GET['symbol'];

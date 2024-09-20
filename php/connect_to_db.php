@@ -10,9 +10,7 @@ if ($given_password != $expected_password) {
 
 $servername = "database-5016350526.ud-webspace.de";
 $username = "dbu2311301";
-$password = "StockDataIsSafe1!";
-$databsename = "dbs13295667";
 
-$conn = new PDO("mysql:host=$servername;dbname=dbs13295667", $username, $password);
+$conn = new PDO("mysql:host=$servername;dbname=dbs13295667", $username, $dbpassword);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
