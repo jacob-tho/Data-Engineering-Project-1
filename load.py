@@ -7,7 +7,7 @@ import os
 import mysql.connector
 #import extract
 import transform
-import pdb
+#import pdb
 import pandas as pd
 import datetime
 
@@ -19,16 +19,15 @@ def new_table(symbol):
     """
     Neues Schema, wenn es nicht existiert. Datentypen werden von dataframe übernommen. ID kommt noch hinzu.
     """
-    mycursor.execute(f"""CREATE TABLE IF NOT EXISTS {symbol} (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        timestamp DATETIME,
-        open FLOAT,
-        high FLOAT,
-        low FLOAT,
-        close FLOAT,
-        volume INTEGER,
-        rate_of_change DECIMAL(15,3)
-        )""")
+    mycursor.execute(f"""CREATE TABLE IF NOT EXISTS {symbol} (id INT AUTO_INCREMENT PRIMARY KEY,
+     timestamp DATETIME,
+     open FLOAT,
+     high FLOAT,
+     low FLOAT,
+     close FLOAT,
+     volume INTEGER,
+     rate_of_change DECIMAL(15,3)
+     )""")
 
 def show_tables():
     """
@@ -73,11 +72,11 @@ def insert_one(dataframe, schema):
     Wird verwendet für insert_schema(). Wird aufgerufen, falls Schema schon Werte enthält und
     der neuste Wert noch nicht in der Datenbank ist.
     """
-    df = dataframe
-    placeholders = ', '.join(['%s'] * len(df.columns))
-    columns = ', '.join(df.columns)
+    df = dataframe.values.tolist()[0]
+    placeholders = ', '.join(['%s'] * len(dataframe.columns))
+    columns = ', '.join(dataframe.columns)
     sql = f"INSERT INTO {schema} ({columns}) VALUES ({placeholders})"
-    mycursor.execute(sql, dataframe)
+    mycursor.execute(sql, df)
 
 
 def standardize(sql, df):
@@ -121,8 +120,8 @@ def insert_schema(dataframe, schema):
         df = dataframe.head(1)
         first_row_df = df.values.tolist()[0]
         if standardize(first_row_db, first_row_df) is not True:
-            pdb.set_trace()
-            insert_one(first_row_df, schema)
+            #pdb.set_trace()
+            insert_one(df, schema)
         else:
             print("Erster Wert überschneidet sich. Kein neuer Wert reingeladen.")
     mydb.commit()
@@ -130,18 +129,18 @@ def insert_schema(dataframe, schema):
 
 #Server nicht nur lokal laufen lassen -> my.ini
 
-
 mydb = mysql.connector.connect(
 host="localhost",
 user="root",
-password= os.getenv("MYSQL_PASSWORD"),
+password=os.getenv("MYSQL_PASSWORD"),
 database="finance"
 )
+
 mycursor = mydb.cursor() #"Herzstück"
 
 def load(symbol, data):
     new_table(symbol)
-    show_tables()
+    #show_tables()
     insert_schema(data, symbol)
 
 #show_schema(table)
