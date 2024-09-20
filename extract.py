@@ -1,12 +1,14 @@
 import requests
 #from bs4 import BeautifulSoup
-import io #das kommt dann raus
+import io
 import pandas as pd
-#import os #das kommt dann raus
-import re
-#import json
-
-
+#import re
+import socks
+from stem import Signal
+from stem.control import Controller
+import time
+import os
+#import pdb
 '''
 Mit BS4 gescraped, konnte jedoch nur die ersten 500 Elemente (da JS-Script)
 def scrape_symbols(url):
@@ -22,7 +24,7 @@ def scrape_symbols(url):
 '''
 
 def scrape_all(url):
-    #Durch die Beschränkung des API Zugriffs ist diese Funktion leider obsolet
+    #Ruft die Website auf, die Alle Symbole enthält und speichert jedes Symbol in einer Liste
     headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'}
     response = requests.get(url, headers=headers)
 
@@ -54,16 +56,35 @@ def scrape_all(url):
         results.append(value)
     return results
 
+
+def get_url_via_tor(url):
+    #URL-Access mit Tor-Browser
+    proxies = {
+        'http': 'socks5h://127.0.0.1:9150',
+        'https': 'socks5h://127.0.0.1:9150'
+    }
+
+    try:
+        response = requests.get(url, proxies=proxies, timeout=10)
+        return response.text
+    except requests.RequestException as e:
+        print(f"Error fetching {url}: {e}")
+        return None
+
+def renew_tor_ip():
+    #IP-Addresse wechseln
+    with Controller.from_port(port=9151) as controller:
+        controller.authenticate(password=os.getenv("MYSQL_PASSWORD"))
+        controller.signal(Signal.NEWNYM)
+        time.sleep(2)
+
+
 def encode_single(url):
     """
-    Greift auf API zu und lädt CSV Daten in pandas Dataframe
+    Greift auf API zu (mittels Tor) und lädt CSV Daten in pandas Dataframe
     """
-    r = requests.get(url)
-    data = r.content.decode("utf-8")
+    #r = requests.get(url)
+    #data = data.content.decode("utf-8")
+    data = get_url_via_tor(url)
     data = pd.read_csv(io.StringIO(data))
     return data
-
-"""
-#URL muss dann geändert werden
-url_symbols = "https://api.stockanalysis.com/api/screener/s/f?m=s&s=asc&c=s,n,industry,marketCap&cn=6000&p=1&i=stocks"
-"""
