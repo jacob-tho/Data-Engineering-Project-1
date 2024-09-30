@@ -5,11 +5,10 @@ DBS-Architektur bei passenden Daten Strukturieren (Key-Analyse z.B.)
 """
 import os
 import mysql.connector
-#import extract
 import transform
-#import pdb
 import pandas as pd
 import datetime
+import requests
 
 DECIMAL_ACCURACY = 6
 
@@ -52,6 +51,8 @@ def show_values(schema):
     """
     Wenn nötig: Zeige alle Werte des Schemas
     """
+    response = requests.get(f"https://www.lohse-und-lohse.de/DEP/get_newest_stock_data.php?pw=lo34bf&symbol={schema}")
+    return response
     mycursor.execute(f"SELECT * FROM {schema}")
     rows = mycursor.fetchall()
     for row in rows:
@@ -75,10 +76,17 @@ def insert_one(dataframe, schema):
     der neuste Wert noch nicht in der Datenbank ist.
     """
     df = dataframe.values.tolist()[0]
-    placeholders = ', '.join(['%s'] * len(dataframe.columns))
-    columns = ', '.join(dataframe.columns)
-    sql = f"INSERT INTO {schema} ({columns}) VALUES ({placeholders})"
-    mycursor.execute(sql, df)
+    data_obj = {
+            "timestamp": df[0],
+            "open": df[1],
+            "high": df[2],
+            "low": df[3],
+            "close": df[4],
+            "volume": df[5],
+            "rate_of_change": df[6],
+            }
+    json_obj = json.dumps(data_obj)
+    requests.get(f"https://www.lohse-und-lohse.de/DEP/insert_single_stock.php?pw=lo34bf&symbol={schema}&stock_data={json_obj}")
 
 def standardize(sql, df):
     """
