@@ -27,4 +27,10 @@ def insert_one(df, schema):
     json_obj = json.dumps(data_obj)
     requests.get(f"https://www.lohse-und-lohse.de/DEP/insert_single_stock.php?pw=lo34bf&symbol={schema}&stock_data={json_obj}")
 
-print(insert_one(['2030-09-27', 0, 10, 20, 30, 40, 50],"DELL"))
+def new_table(symbol):
+    """
+    Neues Schema, wenn es nicht existiert. Datentypen werden von dataframe übernommen. ID kommt noch hinzu.
+    """
+    requests.get(f"https://www.lohse-und-lohse.de/DEP/create_table_if_not_exists.php?pw=lo34bf&symbol={symbol}")
+
+new_table("QUACK")

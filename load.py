@@ -20,15 +20,7 @@ def new_table(symbol):
     """
     Neues Schema, wenn es nicht existiert. Datentypen werden von dataframe übernommen. ID kommt noch hinzu.
     """
-    mycursor.execute(f"""CREATE TABLE IF NOT EXISTS {symbol} (id INT AUTO_INCREMENT PRIMARY KEY,
-     timestamp DATETIME,
-     open FLOAT,
-     high FLOAT,
-     low FLOAT,
-     close FLOAT,
-     volume INTEGER,
-     rate_of_change DECIMAL(15,3)
-     )""")
+    requests.get(f"https://www.lohse-und-lohse.de/DEP/create_table_if_not_exists.php?pw=lo34bf&symbol={symbol}")
 
 def show_tables():
     """
@@ -64,11 +56,8 @@ def insert_many(dataframe, schema):
     Lädt alle Werte des Dataframes in das Schema (1:1 Mapping)
     """
     df = dataframe
-    data = df.values.tolist()
-    placeholders = ', '.join(['%s'] * len(df.columns))
-    columns = ', '.join(df.columns)
-    sql = f"INSERT INTO {schema} ({columns}) VALUES ({placeholders})"
-    mycursor.executemany(sql, data)
+    for data in df.iloc:
+        insert_one(data, schema)
 
 def insert_one(dataframe, schema):
     """
