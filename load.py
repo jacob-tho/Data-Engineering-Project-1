@@ -45,10 +45,6 @@ def show_values(schema):
     """
     response = requests.get(f"https://www.lohse-und-lohse.de/DEP/get_newest_stock_data.php?pw=lo34bf&symbol={schema}")
     return response
-    mycursor.execute(f"SELECT * FROM {schema}")
-    rows = mycursor.fetchall()
-    for row in rows:
-        print(row)
 
 def insert_many(dataframe, schema):
     """
