@@ -3,6 +3,7 @@ import os
 import datetime
 import matplotlib.pyplot as plt
 import matplotlib.dates
+#import main
 #from main import symbol_list Wie genau funktionieren import-statements? Wieso wird main immer komplett ausgeführt?
 """
 Normale Prozedur: EDA; PDA
@@ -52,5 +53,6 @@ def plot(symbol):
     plt.plot(x_axis, y_axis)
     plt.title(f"{symbol}-Graph")
     plt.show()
-for symbol in symbol_list:
-    plot(symbol)
+#for symbol in main.symbols:
+#    plot(symbol)
+plot("ae")

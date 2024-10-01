@@ -22,7 +22,6 @@ def scrape_symbols(url):
     return symbols
     #url = "https://stockanalysis.com/stocks/"
 '''
-
 def scrape_all(url):
     #Ruft die Website auf, die Alle Symbole enthält und speichert jedes Symbol in einer Liste
     headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'}
@@ -57,7 +56,7 @@ def scrape_all(url):
     return results
 
 
-def get_url_via_tor(url):
+def get_url_via_tor(url: str) ->str:
     #URL-Access mit Tor-Browser
     proxies = {
         'http': 'socks5h://127.0.0.1:9150',
@@ -78,13 +77,20 @@ def renew_tor_ip():
         controller.signal(Signal.NEWNYM)
         time.sleep(2)
 
+def get_current_ip():
+    proxies = {
+        'http': 'socks5h://127.0.0.1:9150',
+        'https': 'socks5h://127.0.0.1:9150'
+    }
+    url = "http://httpbin.org/ip"
+    response = requests.get(url, proxies=proxies)
+    return response.json()["origin"]
 
-def encode_single(url):
+def encode_single(url: str) -> pd.DataFrame:
     """
     Greift auf API zu (mittels Tor) und lädt CSV Daten in pandas Dataframe
     """
-    #r = requests.get(url)
-    #data = data.content.decode("utf-8")
     data = get_url_via_tor(url)
     data = pd.read_csv(io.StringIO(data))
     return data
+renew_tor_ip()

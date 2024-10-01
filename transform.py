@@ -4,7 +4,7 @@ import pandas as pd
 #TO-DO: Alles abgehakt :)
 #In diesem Fall sind die Daten schon sehr "sauber". Bei anderem Projekt auf unsaubere Daten achten zur Übung
 
-def df_info(df):
+def df_info(df: pd.DataFrame):
     """
     Gibt Überblick über den jeweiligen Dataframe
     """
@@ -19,7 +19,7 @@ def df_cleaning(df, column, value):
     df.drop_duplicates()
 
 
-def new_column(df, column_name="rate_of_change"):
+def new_column(df, column_name="rate_of_change") -> pd.DataFrame:
     """
     Kreiert neue Spalte "Rate of change". Wird berechnet durch close-Wert geteilt durch close-Wert vom Vortag,
     um prozentuale Änderungsrate zum Vortag zu erkennen.
@@ -28,7 +28,7 @@ def new_column(df, column_name="rate_of_change"):
     df.fillna(0)
     return df
 
-def transform(data):
+def transform(data: pd.DataFrame) -> pd.DataFrame:
     """
     Alle vorherigen Funktionen in logischer Reienfolge. Dabei wird der Wert des letzten Eintrages durch 0 ersetzt,
     da dieser keinen Vortag hat und NaN ist.
