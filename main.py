@@ -13,6 +13,7 @@ API_key = os.getenv("API_KEY")
 datatype = "csv"
 mydb = load.mydb
 mycursor = mydb.cursor()
+used_ips = set()
 
 def biggest_change(symbol, stock, current_high, current_high_name, current_low, current_low_name):
     #Berechne größten Gewinn/Verlust über alle Stocks
@@ -38,8 +39,11 @@ def etl_pipeline(symbol_list, highest_change, highest_change_name, lowest_change
     runs=0
     for symbol in symbol_list:
         runs+=1
-        if runs%5==0:
-            extract.renew_tor_ip()
+        if runs%10==0 and runs <= 6000:
+            while extract.get_current_ip() in used_ips:
+                extract.renew_tor_ip()
+        current_ip = extract.get_current_ip()
+        used_ips.add(current_ip)
         url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&outputsize=full&apikey={API_key}&datatype={datatype}'
         df = transform.transform(url)
         highest_change, highest_change_name, lowest_change, lowest_change_name = biggest_change(symbol, df, highest_change, highest_change_name, lowest_change, lowest_change_name)
@@ -65,7 +69,7 @@ highest_change = float(0)
 lowest_change = float(0)
 highest_change_name = None
 lowest_change_name = None
-etl_pipeline(symbols, highest_change, highest_change_name, lowest_change, lowest_change_name)
+etl_pipeline(symbols[:10], highest_change, highest_change_name, lowest_change, lowest_change_name)
 '''
 scheduler = BlockingScheduler()
 scheduler.add_job(etl_pipeline, "cron", hour=10, minute=0, args=[symbol_list]) #Das funktioniert noch nicht so ganz -> Docs durchlesen!

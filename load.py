@@ -7,7 +7,7 @@ import os
 import mysql.connector
 #import extract
 import transform
-#import pdb
+import pdb
 import pandas as pd
 import datetime
 
@@ -17,7 +17,7 @@ DECIMAL_ACCURACY = 6
 To-Do:
 Query für Exploration/Mining (und das Ergebnis automatisch visualisieren)
 '''
-def new_table(symbol):
+def new_table(symbol: str):
     """
     Neues Schema, wenn es nicht existiert. Datentypen werden von dataframe übernommen. ID kommt noch hinzu.
     """
@@ -57,7 +57,7 @@ def show_values(schema):
     for row in rows:
         print(row)
 
-def insert_many(dataframe, schema):
+def insert_many(dataframe, schema:str):
     """
     Wird verwendet für insert_schema(). Wird aufgerufen, falls neues Schema kreiert wurde und leer ist.
     Lädt alle Werte des Dataframes in das Schema (1:1 Mapping)
@@ -69,7 +69,7 @@ def insert_many(dataframe, schema):
     sql = f"INSERT INTO {schema} ({columns}) VALUES ({placeholders})"
     mycursor.executemany(sql, data)
 
-def insert_one(dataframe, schema):
+def insert_one(dataframe, schema:str):
     """
     Wird verwendet für insert_schema(). Wird aufgerufen, falls Schema schon Werte enthält und
     der neuste Wert noch nicht in der Datenbank ist.
@@ -104,7 +104,7 @@ def standardize(sql, df):
     duplicate = sql_standardized[:3] == df_standardized[:3]
     return duplicate
 
-def insert_schema(dataframe, schema):
+def insert_schema(dataframe, schema: str):
     """
     Werte von pd.df in mySQL Datenbank laden. Wenn leer: Alle reinladen.
     Wenn nicht leer: Schaue, ob neuester Wert bereits in Schema.
@@ -138,12 +138,12 @@ database="finance"
 
 mycursor = mydb.cursor() #"Herzstück"
 
-def load(symbol, data):
+def load(symbol: str, data: pd.DataFrame):
+    if symbol == "add":
+        symbol = "add_stock"
     new_table(symbol)
     #show_tables()
-    insert_schema(data, symbol)
 
-#show_schema(table)
-#show_values(table) #head!
+    insert_schema(data, symbol)
 
 #Damit habe ich dann alles in SQL geladen, jetzt noch Flow Control & Queries (+ Visualisierung)
